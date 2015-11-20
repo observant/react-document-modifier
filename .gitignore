@@ -1,0 +1,9 @@
+# Mac filesystem files
+.DS_Store
+
+# Logs
+*.log
+
+# Node's dependencies directory
+# https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
+node_modules

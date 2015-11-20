@@ -1,0 +1,25 @@
+{
+  "name": "react-document-modifier",
+  "version": "1.0.0",
+  "description": "A declaritive, nested, stateful document object in React applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "react-component",
+    "document",
+    "modifier",
+    "title",
+    "style"
+  ],
+  "author": "Hadi Michael @hadi_michael (https://hadi.io)",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "react-side-effect": "^1.0.2",
+    "seamless-immutable": "^4.0.2"
+  }
+}
