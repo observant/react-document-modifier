@@ -1,20 +1,22 @@
-import React, { Children, PropTypes } from 'react';
+'use strict';
 
-import withSideEffect from 'react-side-effect';
+var React = require('react'),
+	withSideEffect = require('react-side-effect'),
+	_ = require('lodash'),
+	immutable = require('seamless-immutable');
 
-import { default as _ } from 'lodash';
-import { default as immutable } from 'seamless-immutable';
+var DocumentModifier = React.createClass({
+	displayName: 'DocumentModifier',
 
-class DocumentModifier extends React.Component {
-	static propTypes = {
-		children: PropTypes.object,
-		properties: PropTypes.object.isRequired,
-	};
+	propTypes: {
+		children: React.PropTypes.object,
+		properties: React.PropTypes.object.isRequired,
+	},
 
-	render() {
-		return this.props.children ? Children.only(this.props.children) : null;
+	render: function render() {
+		return this.props.children ? React.Children.only(this.props.children) : null;
 	}
-}
+});
 
 function reducePropsToState(propsList = []) {
 	const finalProps = {}; //our goal is return the final document.`props` tree for the current application state - this is a "pure" function
@@ -59,7 +61,7 @@ function handleStateChangeOnClient(props) {
 	virtualDocumentProps = immutable(deepDOMUpdate(virtualDocumentProps, props, document)); //Update the DOM to reflect the current state, clearing out invalid props
 }
 
-export default withSideEffect(
+module.exports = withSideEffect(
 	reducePropsToState,
 	handleStateChangeOnClient
 )(DocumentModifier);
