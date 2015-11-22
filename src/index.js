@@ -1,11 +1,9 @@
-'use strict';
+import React from 'react';
+import withSideEffect from 'react-side-effect';
+import {default as _} from 'lodash';
+import {default as immutable} from 'seamless-immutable';
 
-var React = require('react'),
-	withSideEffect = require('react-side-effect'),
-	_ = require('lodash'),
-	immutable = require('seamless-immutable');
-
-var DocumentModifier = React.createClass({
+const DocumentModifier = React.createClass({
 	displayName: 'DocumentModifier',
 
 	propTypes: {
@@ -15,7 +13,7 @@ var DocumentModifier = React.createClass({
 
 	render: function render() {
 		return this.props.children ? React.Children.only(this.props.children) : null;
-	}
+	},
 });
 
 function reducePropsToState(propsList = []) {

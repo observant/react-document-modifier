@@ -1,6 +1,9 @@
 # Mac filesystem files
 .DS_Store
 
+# Webstorm preferences
+.idea/
+
 # Logs
 *.log
 

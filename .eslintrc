@@ -1,0 +1,13 @@
+{
+  "extends": "eslint-config-airbnb", //Styleguide here: https://github.com/airbnb/javascript
+  "rules": {
+    "indent": [
+      2,
+      "tab"
+    ],
+    "spaced-comment": [
+      2,
+      "never"
+    ]
+  }
+}
