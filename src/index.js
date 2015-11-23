@@ -48,18 +48,17 @@ function deepDOMUpdate(target, source, domNode = document, defaultClear = '') {
 
 	return result;
 }
+//END UTILITIES
 
 //Let's hold (in memory) an immutable map of all the properties currently on the DOM
-//In the future, we might look into how to hold this in the Redux Store, instead
 let virtualDocumentProps = immutable({});
-//END UTILITIES
 
 function handleStateChangeOnClient(props) {
 	virtualDocumentProps = virtualDocumentProps.merge(props, {deep: true}); //merge in the final props for current state into our virtual model
 	virtualDocumentProps = immutable(deepDOMUpdate(virtualDocumentProps, props, document)); //Update the DOM to reflect the current state, clearing out invalid props
 }
 
-module.exports = withSideEffect(
+export default withSideEffect(
 	reducePropsToState,
 	handleStateChangeOnClient
 )(DocumentModifier);

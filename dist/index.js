@@ -1,5 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -68,15 +72,14 @@ function deepDOMUpdate(target, source) {
 
 	return result;
 }
+//END UTILITIES
 
 //Let's hold (in memory) an immutable map of all the properties currently on the DOM
-//In the future, we might look into how to hold this in the Redux Store, instead
 var virtualDocumentProps = (0, _seamlessImmutable2.default)({});
-//END UTILITIES
 
 function handleStateChangeOnClient(props) {
 	virtualDocumentProps = virtualDocumentProps.merge(props, { deep: true }); //merge in the final props for current state into our virtual model
 	virtualDocumentProps = (0, _seamlessImmutable2.default)(deepDOMUpdate(virtualDocumentProps, props, document)); //Update the DOM to reflect the current state, clearing out invalid props
 }
 
-module.exports = (0, _reactSideEffect2.default)(reducePropsToState, handleStateChangeOnClient)(DocumentModifier);
+exports.default = (0, _reactSideEffect2.default)(reducePropsToState, handleStateChangeOnClient)(DocumentModifier);
