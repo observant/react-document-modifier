@@ -6,6 +6,17 @@ Provides declaritive, nested, stateful `document` modification for React applica
 
 Inspired by [react-document-title](https://github.com/gaearon/react-document-title). Built with [React Side Effect](https://github.com/gaearon/react-side-effect).
 
+## What problem does this solve?
+
+//coming soon
+
+## Features
+
+* Can modify any property on `window.document`;
+* Like a normal React component, can use its parent's `props` and `state`;
+* Can be defined in many places throughout the application;
+* Supports arbitrary levels of nesting, so you can define app-wide and page-specific modifications;
+
 ## Installation
 
 ```
@@ -19,18 +30,7 @@ Dependencies:
 * seamless-immutable >= 4.0.0
 * lodash >= 3.10.0
 
-## Features
-
-* Can modify any property on `window.document`;
-* Like a normal React component, can use its parent's `props` and `state`;
-* Can be defined in many places throughout the application;
-* Supports arbitrary levels of nesting, so you can define app-wide and page-specific modifications;
-
-## Usage
-
-//coming soon
-
-## Example
+## Usage/Examples
 
 //coming soon
 
@@ -47,3 +47,7 @@ MIT
 ## Looking for something more expressive?
 
 Check out [React Helmet](https://github.com/nfl/react-helmet)! to modify `document.head`.
+
+# This component was built at [Observant](http://www.observant.net)?
+
+Observant build an integrated platform for the precision management of water in agriculture. We're hiring engineers, say hello at [@obsrvnt](https://twitter.com/obsrvnt) or visit [http://www.observant.net/careers/](http://www.observant.net/careers/) for more.
