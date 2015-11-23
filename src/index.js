@@ -3,16 +3,18 @@ import withSideEffect from 'react-side-effect';
 import {default as _} from 'lodash';
 import {default as immutable} from 'seamless-immutable';
 
-class DocumentModifier extends React.Component {
-	static propTypes = {
+const DocumentModifier = React.createClass({
+	displayName: 'DocumentModifier',
+
+	propTypes: {
 		children: React.PropTypes.object,
 		properties: React.PropTypes.object.isRequired,
-	};
+	},
 
-	render() {
+	render: function render() {
 		return this.props.children ? React.Children.only(this.props.children) : null;
-	}
-}
+	},
+});
 
 function reducePropsToState(propsList = []) {
 	const finalProps = {}; //our goal is return the final document.`props` tree for the current application state - this is a "pure" function
@@ -46,17 +48,18 @@ function deepDOMUpdate(target, source, domNode = document, defaultClear = '') {
 
 	return result;
 }
-//END UTILITIES
 
 //Let's hold (in memory) an immutable map of all the properties currently on the DOM
+//In the future, we might look into how to hold this in the Redux Store, instead
 let virtualDocumentProps = immutable({});
+//END UTILITIES
 
 function handleStateChangeOnClient(props) {
 	virtualDocumentProps = virtualDocumentProps.merge(props, {deep: true}); //merge in the final props for current state into our virtual model
 	virtualDocumentProps = immutable(deepDOMUpdate(virtualDocumentProps, props, document)); //Update the DOM to reflect the current state, clearing out invalid props
 }
 
-export default withSideEffect(
+module.exports = withSideEffect(
 	reducePropsToState,
 	handleStateChangeOnClient
 )(DocumentModifier);
