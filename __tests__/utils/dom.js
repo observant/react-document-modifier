@@ -2,6 +2,8 @@
  * Approach taken from Jake Trent at http://jaketrent.com/post/testing-react-with-jsdom/
  */
 
+/*global global*/
+
 const jsdom = require('jsdom');
 
 //setup the simplest document possible
