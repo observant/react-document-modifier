@@ -9,7 +9,7 @@
     "build": "./node_modules/.bin/babel src --out-dir dist",
     "build:watch": "npm run build --watch",
     "lint": "./node_modules/.bin/eslint src/**.*.js __tests__/**.*js",
-    "version": "npm run build && git add -A dist",
+    "version": "npm run build && git add -A dist"
   },
   "keywords": [
     "react",
