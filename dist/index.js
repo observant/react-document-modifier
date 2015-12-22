@@ -26,7 +26,7 @@ var DocumentModifier = _react2.default.createClass({
 	displayName: 'DocumentModifier',
 
 	propTypes: {
-		children: _react2.default.PropTypes.object,
+		children: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.element, _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.element)]),
 		properties: _react2.default.PropTypes.object.isRequired
 	},
 
