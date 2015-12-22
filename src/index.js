@@ -7,7 +7,7 @@ const DocumentModifier = React.createClass({
 	displayName: 'DocumentModifier',
 
 	propTypes: {
-		children: React.PropTypes.object,
+		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.arrayOf(React.PropTypes.element)]),
 		properties: React.PropTypes.object.isRequired,
 	},
 
