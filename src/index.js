@@ -12,7 +12,7 @@ const DocumentModifier = React.createClass({
 	},
 
 	render: function render() {
-		return this.props.children;
+		return <div>{ this.props.children }</div>;
 	},
 });
 
