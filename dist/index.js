@@ -31,7 +31,11 @@ var DocumentModifier = _react2.default.createClass({
 	},
 
 	render: function render() {
-		return this.props.children;
+		return _react2.default.createElement(
+			'div',
+			null,
+			this.props.children
+		);
 	}
 });
 
