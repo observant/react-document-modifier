@@ -31,7 +31,7 @@ var DocumentModifier = _react2.default.createClass({
 	},
 
 	render: function render() {
-		return this.props.children ? _react2.default.Children.only(this.props.children) : null;
+		return this.props.children;
 	}
 });
 
