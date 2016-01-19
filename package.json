@@ -1,6 +1,6 @@
 {
   "name": "react-document-modifier",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Declaritive, nested, stateful `document` modification for React applications",
   "main": "dist/index.js",
   "repository": {
