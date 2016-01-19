@@ -3,6 +3,10 @@
   "version": "0.1.7",
   "description": "Declaritive, nested, stateful `document` modification for React applications",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/observant/react-document-modifier.git"
+  },
   "scripts": {
     "test": "npm run build && ./node_modules/.bin/mocha --compilers js:babel-core/register --require __tests__/utils/dom.js --reporter nyan __tests__/**/*.spec.js",
     "test:watch": "npm run build:watch && npm run test -- --watch",
