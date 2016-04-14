@@ -1,17 +1,18 @@
 /*eslint-env node, mocha */
 /*global global, describe, it, before*/
 
-import {expect, assert} from 'chai';
+import { expect, assert } from 'chai';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
 import DocumentModifier from '../dist/index.js';
 
-describe(new Date() + '\nDocumentModifier core functionality', () => {
+import { mount } from 'enzyme';
+
+describe(`${new Date()}: DocumentModifier core functionality`, () => {
 	beforeEach(() => {
 		//clear properties we will be testing for
 		//we have to do this, because document is persistent and wouldn't be cleared with unmount
-		global.document.title = '';
-		global.document.body.class = '';
+		global.document.title = undefined;
+		global.document.body.class = undefined;
 	});
 
 	it('changes the document title on mount', (done) => {
@@ -25,14 +26,15 @@ describe(new Date() + '\nDocumentModifier core functionality', () => {
 				done();
 			},
 			render: () => {
-				return React.createElement(DocumentModifier, { properties: {title: newTitle} });
+				return <DocumentModifier properties={ {title: newTitle} } />;
 			},
 		});
 
-		ReactTestUtils.renderIntoDocument(React.createElement(Component));
+		const wrapper = mount(<Component />);
+		wrapper.unmount();
 	});
 
-	it('add a class to document.body on mount', (done) => {
+	it('adds a class name to `document.body` on mount', (done) => {
 		const className = 'noscroll';
 
 		assert.notEqual(global.document.body.class, className);
@@ -43,11 +45,12 @@ describe(new Date() + '\nDocumentModifier core functionality', () => {
 				done();
 			},
 			render: () => {
-				return React.createElement(DocumentModifier, { properties: {body: {class: className}} });
+				return <DocumentModifier properties={ {body: {class: className}} } />;
 			},
 		});
 
-		ReactTestUtils.renderIntoDocument(React.createElement(Component));
+		const wrapper = mount(<Component />);
+		wrapper.unmount();
 	});
 
 	it('can resolve nested properties (title)', (done) => {
@@ -59,13 +62,7 @@ describe(new Date() + '\nDocumentModifier core functionality', () => {
 		assert.notEqual(global.document.title, childTitle);
 		assert.notEqual(global.document.body.class, className);
 
-		const ChildComponent = React.createClass({
-			render: () => {
-				return React.createElement(DocumentModifier, { properties: {title: childTitle} });
-			},
-		});
-
-		const ParentComponent = React.createClass({
+		const Component = React.createClass({
 			componentDidMount: () => {
 				expect(global.document.title).to.equal(childTitle); //child title wins
 				expect(global.document.body.class).to.equal(className); //while preserving classname
@@ -73,18 +70,19 @@ describe(new Date() + '\nDocumentModifier core functionality', () => {
 			},
 			render: () => {
 				return (
-						<ChildComponent properties={{title: parentTitle, body: {class: className}}}>
-							<p>Some more children...</p>
-						</ChildComponent>
+					<DocumentModifier properties={{title: parentTitle, body: {class: className}}}>
+						<DocumentModifier properties={{title: childTitle}} />
+					</DocumentModifier>
 				);
 			},
 		});
 
-		ReactTestUtils.renderIntoDocument(React.createElement(ParentComponent));
+		const wrapper = mount(<Component />);
+		wrapper.unmount();
 	});
 });
 
-describe(new Date() + '\nDocumentModifier component', () => {
+describe(`${new Date()}: DocumentModifier`, () => {
 	before(() => {
 		console.error = (error) => {
 			//escalate Warnings to Errors
@@ -103,10 +101,11 @@ describe(new Date() + '\nDocumentModifier component', () => {
 				},
 			});
 
-			ReactTestUtils.renderIntoDocument(React.createElement(Component));
+			const wrapper = mount(<Component />);
+			wrapper.unmount();
 		};
 
-		expect(wrapperFn).to.throw(Error);
+		expect(wrapperFn).to.throw(Error); //this should be a PropTypes error
 		done();
 	});
 
@@ -122,7 +121,9 @@ describe(new Date() + '\nDocumentModifier component', () => {
 			},
 		});
 
-		ReactTestUtils.renderIntoDocument(React.createElement(Component));
+		const wrapper = mount(<Component />);
+		expect(wrapper.html()).to.equal(null);
+		wrapper.unmount();
 	});
 
 	it('can accept exactly one child', (done) => {
@@ -139,7 +140,9 @@ describe(new Date() + '\nDocumentModifier component', () => {
 			},
 		});
 
-		ReactTestUtils.renderIntoDocument(React.createElement(Component));
+		const wrapper = mount(<Component />);
+		expect(wrapper.html()).to.equal('<p>Exactly one child!</p>');
+		wrapper.unmount();
 	});
 
 	it('can accept multiple children', (done) => {
@@ -161,6 +164,48 @@ describe(new Date() + '\nDocumentModifier component', () => {
 			},
 		});
 
-		ReactTestUtils.renderIntoDocument(React.createElement(Component));
+		const wrapper = mount(<Component />);
+		expect(wrapper.html()).to.equal('<div><p>My first paragraph</p><p>... and another paragraph element.</p><ul><li>Let\'s throw</li><li>a list into the mix</li></ul></div>')
+		wrapper.unmount();
+	});
+
+	it('can accept another <DocumentModifier /> with no children', (done) => {
+		const Component = React.createClass({
+			componentDidMount: () => {
+				done();
+			},
+			render: () => {
+				return (
+					<DocumentModifier properties={{title: 'unit test'}} >
+						<DocumentModifier properties={{title: 'inner unit test'}} />
+					</DocumentModifier>
+				);
+			},
+		});
+
+		const wrapper = mount(<Component />);
+		expect(wrapper.html()).to.equal(null);
+		wrapper.unmount();
+	});
+
+	it('can accept another <DocumentModifier /> with children', (done) => {
+		const Component = React.createClass({
+			componentDidMount: () => {
+				done();
+			},
+			render: () => {
+				return (
+					<DocumentModifier properties={{title: 'unit test'}}>
+						<DocumentModifier properties={{title: 'inner unit test'}}>
+							<p>Some child paragraph...</p>
+						</DocumentModifier>
+					</DocumentModifier>
+				);
+			},
+		});
+
+		const wrapper = mount(<Component />);
+		expect(wrapper.html()).to.equal('<p>Some child paragraph...</p>');
+		wrapper.unmount();
 	});
 });

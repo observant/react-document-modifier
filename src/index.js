@@ -3,18 +3,21 @@ import withSideEffect from 'react-side-effect';
 import {default as _} from 'lodash';
 import {default as immutable} from 'seamless-immutable';
 
-const DocumentModifier = React.createClass({
-	displayName: 'DocumentModifier',
+const DocumentModifier = (props) => {
+	if (React.Children.count(props.children) === 1) {
+		return React.Children.only(props.children);
+	}
 
-	propTypes: {
-		children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.arrayOf(React.PropTypes.element)]),
-		properties: React.PropTypes.object.isRequired,
-	},
+	return React.Children.count(props.children) > 1 ? <div>{props.children}</div> : null;
+};
 
-	render: function render() {
-		return <div>{ this.props.children }</div>;
-	},
-});
+DocumentModifier.propTypes = {
+	children: React.PropTypes.oneOfType([
+		React.PropTypes.element,
+		React.PropTypes.arrayOf(React.PropTypes.element)
+	]),
+	properties: React.PropTypes.object.isRequired,
+};
 
 function reducePropsToState(propsList = []) {
 	const finalProps = {}; //our goal is return the final document.`props` tree for the current application state - this is a "pure" function

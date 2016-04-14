@@ -22,22 +22,22 @@ var _seamlessImmutable2 = _interopRequireDefault(_seamlessImmutable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var DocumentModifier = _react2.default.createClass({
-	displayName: 'DocumentModifier',
-
-	propTypes: {
-		children: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.element, _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.element)]),
-		properties: _react2.default.PropTypes.object.isRequired
-	},
-
-	render: function render() {
-		return _react2.default.createElement(
-			'div',
-			null,
-			this.props.children
-		);
+var DocumentModifier = function DocumentModifier(props) {
+	if (_react2.default.Children.count(props.children) === 1) {
+		return _react2.default.Children.only(props.children);
 	}
-});
+
+	return _react2.default.Children.count(props.children) > 1 ? _react2.default.createElement(
+		'div',
+		null,
+		props.children
+	) : null;
+};
+
+DocumentModifier.propTypes = {
+	children: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.element, _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.element)]),
+	properties: _react2.default.PropTypes.object.isRequired
+};
 
 function reducePropsToState() {
 	var propsList = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
