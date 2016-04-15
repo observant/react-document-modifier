@@ -8,7 +8,7 @@ const DocumentModifier = (props) => {
 		return React.Children.only(props.children);
 	}
 
-	return React.Children.count(props.children) > 1 ? <div>{props.children}</div> : null;
+	return React.Children.count(props.children) > 1 ? <div {...props}>{props.children}</div> : null;
 };
 
 DocumentModifier.propTypes = {

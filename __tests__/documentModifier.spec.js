@@ -169,6 +169,26 @@ describe(`${new Date()}: DocumentModifier`, () => {
 		wrapper.unmount();
 	});
 
+	it('passes down props to `div` for multiple children', (done) => {
+		const Component = React.createClass({
+			componentDidMount: () => {
+				done();
+			},
+			render: () => {
+				return (
+					<DocumentModifier properties={{title: 'unit test'}} className="myClass" id="myId">
+						<p>My first paragraph</p>
+						<p>... and another paragraph element.</p>
+					</DocumentModifier>
+				);
+			},
+		});
+
+		const wrapper = mount(<Component />);
+		expect(wrapper.html()).to.equal('<div class="myClass" id="myId"><p>My first paragraph</p><p>... and another paragraph element.</p></div>')
+		wrapper.unmount();
+	});
+
 	it('can accept another <DocumentModifier /> with no children', (done) => {
 		const Component = React.createClass({
 			componentDidMount: () => {

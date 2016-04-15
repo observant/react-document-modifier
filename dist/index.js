@@ -29,7 +29,7 @@ var DocumentModifier = function DocumentModifier(props) {
 
 	return _react2.default.Children.count(props.children) > 1 ? _react2.default.createElement(
 		'div',
-		null,
+		props,
 		props.children
 	) : null;
 };
