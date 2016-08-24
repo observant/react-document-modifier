@@ -27,9 +27,11 @@ var DocumentModifier = function DocumentModifier(props) {
 		return _react2.default.Children.only(props.children);
 	}
 
+	var divProps = _lodash2.default.omit(props, 'properties');
+
 	return _react2.default.Children.count(props.children) > 1 ? _react2.default.createElement(
 		'div',
-		props,
+		divProps,
 		props.children
 	) : null;
 };
@@ -69,9 +71,9 @@ function deepDOMUpdate(target, source) {
 		if (_lodash2.default.isObject(value)) {
 			deepDOMUpdate(target[key], source[key], domNode[key]); //if it's an object, then recurse
 		} else {
-				result[key] = source ? source[key] : undefined; //clear out a now null property
-				domNode[key] = result[key] || defaultClear; //update the DOM
-			}
+			result[key] = source ? source[key] : undefined; //clear out a now null property
+			domNode[key] = result[key] || defaultClear; //update the DOM
+		}
 	});
 
 	return result;
