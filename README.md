@@ -40,9 +40,9 @@ Dependencies:
 ```json
 "dependencies": {
   "lodash": "^3.10.0",
-  "react": "^0.14.0",
+  "react": "^15.0.0",
   "react-side-effect": "^1.0.0",
-  "seamless-immutable": "^4.0.0"
+  "seamless-immutable": "^5.0.0"
 },
 ```
 
