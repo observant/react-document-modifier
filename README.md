@@ -1,7 +1,7 @@
 #React Document Modifier
 
 [![npm package](https://img.shields.io/npm/v/react-document-modifier.svg?style=flat-square)](https://www.npmjs.org/package/react-document-modifier)
-[![Build Status](https://travis-ci.org/hadimichael/react-document-modifier.svg?branch=master)](https://travis-ci.org/hadimichael/react-document-modifier)
+[![Build Status](https://travis-ci.org/observant/react-document-modifier.svg?branch=master)](https://travis-ci.org/observant/react-document-modifier)
 
 Provides declaritive, nested, stateful `document` modification for React applications.
 
